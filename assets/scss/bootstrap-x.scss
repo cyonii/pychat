@@ -1,1 +1,69 @@
-@import '../../node_modules/bootstrap/scss/bootstrap'
+$dark: #000;
+$primary: #162e63;
+
+@import '../../node_modules/bootstrap/scss/bootstrap';
+
+body {
+  background-color: $light;
+}
+
+.dropdown-toggle::after {
+  all: unset;
+}
+
+label {
+  margin: 0;
+  line-height: 1;
+}
+
+.rounded-2 {
+  border-radius: 2px;
+}
+
+.form-control {
+  border-radius: 2px;
+}
+
+.form-control:active,
+.form-control:focus {
+  outline: none;
+  box-shadow: none;
+  border-color: $light;
+}
+
+.input-group {
+  box-shadow: 1px 1px 1px $primary;
+  border-color: $secondary !important;
+}
+
+.input-group:focus-within {
+  transition: 0.3s;
+  box-shadow: 1px 1px 3px $danger;
+
+  .input-group-text {
+    background: $dark;
+    color: $light;
+  }
+}
+
+.fs-22 {
+  font-size: 22px;
+}
+
+.lh-1 {
+  line-height: 1;
+}
+
+@include media-breakpoint-up(md) {
+  .chat-convo,
+  .user-stack {
+    height: 80vh;
+    overflow-y: auto;
+  }
+
+  .chat-convo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}

@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'accounts.apps.AccountsConfig',
     'chat.apps.ChatConfig',
+    'crispy_forms',
 ]
 
 MIDDLEWARE = [
@@ -122,3 +123,10 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [BASE_DIR / 'assets']
+
+LOGIN_URL = 'accounts:login'
+LOGIN_REDIRECT_URL = 'chat:index'
+LOGOUT_REDIRECT_URL = 'chat:index'
+
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'

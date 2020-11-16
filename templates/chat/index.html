@@ -1,15 +1,63 @@
 {% extends 'base.html' %}
 
 {% block main %}
-<div class="container-md py-5 text-center">
-  <h1>Welcome to PyChat</h1>
-  <h6 class="text-muted font-weight-light">real-time chat application built on the django framework and the django channel library</h6>
-
+<div class="container-md">
   {% if not user.is_authenticated %}
-  <div class="d-flex align-items-center justify-content-center mt-5">
-    <a href="#" class="btn btn-dark">Login</a>
-    <div class="font-weight-bold text-muted mx-3">OR</div>
-    <a href="#" class="btn btn-danger">Sign Up</a>
+  <div class="py-5">
+    <div class="text-center">
+      <h1>Welcome to PyChat</h1>
+      <h6 class="text-muted font-weight-light">real-time chat application built on the django framework <br>
+        and the django channel library</h6>
+    </div>
+    <div class="d-flex align-items-center justify-content-center mt-5">
+      <a href="{% url 'accounts:login' %}" class="btn btn-dark rounded-2">Login</a>
+      <div class="font-weight-bold text-muted mx-3">OR</div>
+      <a href="{% url 'accounts:signup' %}" class="btn btn-danger rounded-2">Sign Up</a>
+    </div>
+  </div>
+  {% else %}
+  <div class="row justify-content-center">
+    <div class="col-12 col-lg-10 pt-4 pb-2">
+      <div class="d-flex align-items-center justify-content-between">
+        <h5 class="font-weight-light">Chatboard</h5>
+        <button class="btn p-1 alert-dark rounded-circle" type="button" name="button">
+          <svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-three-dots-vertical" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z" />
+          </svg>
+        </button>
+      </div>
+    </div>
+    <div class="col-md-4 col-lg-3 border-right user-stack">
+      <form action="#">
+        <div class="form-group">
+          <label class="sr-only" for="search">Search</label>
+          <div class="input-group border rounded overflow-hidden mb-2">
+            <div class="input-group-prepend">
+              <div class="input-group-text rounded-0 border-0">
+                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-search" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd" d="M10.442 10.442a1 1 0 0 1 1.415 0l3.85 3.85a1 1 0 0 1-1.414 1.415l-3.85-3.85a1 1 0 0 1 0-1.415z" />
+                  <path fill-rule="evenodd" d="M6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zM13 6.5a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0z" />
+                </svg>
+              </div>
+            </div>
+            <input type="text" class="form-control border-0" id="search" placeholder="Search...">
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="col-md-8 col-lg-7 chat-convo">
+      {% for text in texts %}
+      {{ text }}
+      {% empty %}
+      <p class="text-center text-muted fs-22">
+        No chats yet <br>
+        <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-plus-circle mt-3" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+          <path fill-rule="evenodd" d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
+        </svg>
+      </p>
+      {% endfor %}
+    </div>
   </div>
   {% endif %}
 </div>

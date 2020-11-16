@@ -16,7 +16,7 @@
 
 <body>
   <header>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <div class="container-md">
         <a class="navbar-brand font-weight-bold" href="{% url 'chat:index' %}">PyChat</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -24,14 +24,50 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
-              <a class="nav-link" href="#">Account</a>
+            <li class="nav-item dropdown">
+              {% if user.is_authenticated %}
+              <a class="nav-link dropdown-toggle" id="userMenu" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-person-circle" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M13.468 12.37C12.758 11.226 11.195 10 8 10s-4.757 1.225-5.468 2.37A6.987 6.987 0 0 0 8 15a6.987 6.987 0 0 0 5.468-2.63z" />
+                  <path fill-rule="evenodd" d="M8 9a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
+                  <path fill-rule="evenodd" d="M8 1a7 7 0 1 0 0 14A7 7 0 0 0 8 1zM0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8z" />
+                </svg>
+                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-chevron-down ml-1" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" />
+                </svg>
+              </a>
+              <div class="dropdown-menu dropdown-menu-right rounded-2 shadow-sm" aria-labelledby="userMenu">
+                <a class="dropdown-item" href="#">Account</a>
+                <!-- <div class="dropdown-divider"></div> -->
+                <a class="dropdown-item" href="{% url 'accounts:logout' %}">Logout</a>
+              </div>
+              {% else %}
+              <span class="text-muted">Sign in to chat</span>
+              {% endif %}
             </li>
           </ul>
         </div>
       </div>
     </nav>
   </header>
+
+  <!-- {# Alert messages start #} -->
+  {% if messages %}
+  <div class="d-flex flex-column" id="main-alert">
+    {% for message in messages %}
+    <div class="alert alert-{{ message.tags }} shadow-sm text-md-center alert-dismissible fade show rounded-0" role="alert">
+      {{ message|linebreaksbr }}
+      <span class="close" data-dismiss="alert" aria-label="Close">
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-x" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd" d="M11.854 4.146a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708-.708l7-7a.5.5 0 0 1 .708 0z" />
+          <path fill-rule="evenodd" d="M4.146 4.146a.5.5 0 0 0 0 .708l7 7a.5.5 0 0 0 .708-.708l-7-7a.5.5 0 0 0-.708 0z" />
+        </svg>
+      </span>
+    </div>
+    {% endfor %}
+  </div>
+  {% endif %}
+  <!-- {# Alert messages end #} -->
 
   <main>
     {% block main %}
