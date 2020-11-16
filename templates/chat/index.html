@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block main %}
+<div class="container-md py-5 text-center">
+  <h1>Welcome to PyChat</h1>
+  <h6 class="text-muted font-weight-light">real-time chat application built on the django framework and the django channel library</h6>
+
+  {% if not user.is_authenticated %}
+  <div class="d-flex align-items-center justify-content-center mt-5">
+    <a href="#" class="btn btn-dark">Login</a>
+    <div class="font-weight-bold text-muted mx-3">OR</div>
+    <a href="#" class="btn btn-danger">Sign Up</a>
+  </div>
+  {% endif %}
+</div>
+{% endblock main %}

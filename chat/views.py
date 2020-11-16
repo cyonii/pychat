@@ -1,10 +1,6 @@
 from django.shortcuts import render
+from django.views.generic import TemplateView
 
 # Create your views here.
-from django.urls import path
-
-app_name = 'chat'
-
-urlpatterns = [
-    # path(''),
-]
+class Home(TemplateView):
+    template_name = 'chat/index.html'
